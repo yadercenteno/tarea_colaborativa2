@@ -9,11 +9,13 @@
 		}
 	</style>
 	<script>
+		// Función para generar la frase en base a la palabra ingresada
 		function GenerarFrase() {
 			var texto = document.getElementById("mnemonic").value;
 
 			var contenido_frase = "<p>";
 
+			// Recorremos cada letra de la palabra y la ponemos en mayúscula
 			for (var i = 0; i< texto.length; i++) {
 		         var caracter = texto.charAt(i).toUpperCase();
 
