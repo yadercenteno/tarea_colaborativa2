@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Generador de frases</title>
+	<style>
+		.bold{
+			font-weight:bold;
+		}
+	</style>
+	<script>
+		function GenerarFrase() {
+			var texto = document.getElementById("mnemonic").value;
+
+			var contenido_frase = "<p>";
+
+			for (var i = 0; i< texto.length; i++) {
+		         var caracter = texto.charAt(i).toUpperCase();
+
+		         contenido_frase += '<span class="bold">'+caracter+'</span><br/>'; 		        
+		    }
+
+		    contenido_frase += "</p>";
+			
+			document.getElementById("frase").innerHTML = contenido_frase;
+		}
+
+		window.onload = function() {
+			var mis_inputs = document.getElementsByTagName("input");
+
+			for(var i=0; i < mis_inputs.length; i++) {
+			    if(mis_inputs[i].type == "button") {
+			      mis_inputs[i].onclick = GenerarFrase;
+			    }
+			}
+		}		
+	</script>
+</head>
+<body>
+<header id="page_header">
+  <h1>Generador de frases</h1>  
+</header>
+	<section>
+		<article class="form">
+			<form>
+				<label>Escriba una palabra o frase en la caja y esta p&aacute;gina crear&aacute; una frase que le ayudar&aacute; a recordarla.<br/>
+				<input type="text" value="" id="mnemonic" size="50"/>
+				</label>
+				<input type="button" value="Generar" /><br/>
+				<label>Ejemplo: <br/>
+				Si escribes TIERRA podr&iacute;a generarse una frase como:<br/>
+				<p><span class="bold">T</span>&eacute;cnico<br/>
+				<span class="bold">I</span>nteligente<br/>
+				<span class="bold">E</span>labora<br/>
+				<span class="bold">R</span>ectificador<br/>
+				<span class="bold">R</span>eactivo<br/>
+				<span class="bold">A</span>ctivo</p>
+			</form>
+			<footer>
+				<div id="frase">
+					<p>...</p>
+				</div>
+			</footer>
+		</article>
+	</section>
+<footer id="page_footer">
+	<p>Derechos de autor 2018</p>
+</footer>
+</body>
+</html>

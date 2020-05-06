@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Calculadora</title>
+	<style>
+		label{
+			width:300px;
+			display:block;
+		}
+		form{
+			position:relative;
+		}
+		form input[type='text']{
+			text-align:right;
+		}
+		.operaciones{
+			position:absolute;
+			left:230px;
+			top:0px;
+			width:120px;			
+		}
+		.operaciones input[type='button']{
+			width:40px;
+			display:block;
+			float:left;
+		}
+	</style>
+</head>
+<body>
+<header id="page_header">
+  <h1>Calculadora</h1>  
+</header>
+	<section>
+		<article class="form">
+			<form>
+				<div class="controls">
+				<label>Operando 1
+				<input type="text" value="" id="operando1" size="5"/>
+				</label>
+				<label>Operando 2
+				<input type="text" value="" id="operando2" size="5"/>
+				</label>
+				</div>
+				<div class="operaciones">
+					<input type="button" value="+" id="suma"/>
+					<input type="button" value="-" id="resta"/>
+					<input type="button" value="/" id="divide"/>
+					<input type="button" value="x" id="multiplica" />
+					<input type="button" value="=" id="igual" />
+					<input type="button" value="C" id="limpia" />
+				</div>
+			</form>
+			<footer>
+				<div id="resultado">
+					<h3>Resultado</h3>
+					<p>Aqui va el resultado...</p>
+				</div>
+			</footer>
+		</article>		
+	</section>
+<footer id="page_footer">
+	<p>Derechos de autor 2018</p>
+</footer>
+
+	<script>
+		var operando1; 
+		var operando2;
+		var div_resultado = document.getElementById("resultado");
+		var poner_resultado = div_resultado.getElementsByTagName("p");
+		var operacion_ultimo_click;
+
+		// Función para el botón de sumar
+		function suma(evento) {
+			var mi_evento = evento || window.event;
+			var codigo_tecla = mi_evento.keyCode;
+
+			// Solo funciona con ENTER
+			if (codigo_tecla==13) {
+			    operando1=parseInt(document.getElementById("operando1").value);
+			    operando2=parseInt(document.getElementById("operando2").value);
+			    
+			    poner_resultado[0].innerHTML = operando1 + operando2;
+			}
+		}
+
+		// Función para el botón de restar
+		function resta(evento) {
+			var mi_evento = evento || window.event;
+			var codigo_tecla = mi_evento.keyCode;
+
+			// Solo funciona con ENTER
+			if (codigo_tecla==13) {
+			   	operando1=parseInt(document.getElementById("operando1").value);
+			    operando2=parseInt(document.getElementById("operando2").value);
+			    
+			    poner_resultado[0].innerHTML = operando1 - operando2;
+			}    
+		}
+
+		// Función para el botón de multiplicación
+		function multiplicacion(evento) {
+			var mi_evento = evento || window.event;
+			var codigo_tecla = mi_evento.keyCode;
+
+			// Solo funciona con ENTER
+			if (codigo_tecla==13) {
+			    operando1=parseInt(document.getElementById("operando1").value);
+			    operando2=parseInt(document.getElementById("operando2").value);
+			    
+
+			    poner_resultado[0].innerHTML = operando1 * operando2;
+		    }
+		}
+
+		// Función para el botón de dividir
+		function division(evento) {
+			var mi_evento = evento || window.event;
+			var codigo_tecla = mi_evento.keyCode;
+
+			// Solo funciona con ENTER
+			if (codigo_tecla==13) {
+			    operando1=parseInt(document.getElementById("operando1").value);
+			    operando2=parseInt(document.getElementById("operando2").value);
+			    
+			    poner_resultado[0].innerHTML = operando1 / operando2;
+		    }
+		}
+
+		// Función para el botón igual
+		function igual(evento) {
+			var mi_evento = evento || window.event;
+			var codigo_tecla = mi_evento.keyCode;
+
+			// Solo funciona con ENTER
+			if (codigo_tecla==13) {
+		    	operando1=parseInt(document.getElementById("operando1").value);
+			    operando2=parseInt(document.getElementById("operando2").value);
+
+			    if (operacion_ultimo_click!=null || operacion_ultimo_click!="") {
+			    	/* Según el botón al que se le dió click de último, se hace la
+			    	operación
+			    	*/
+			    	switch(operacion_ultimo_click) {
+						case '+':
+							poner_resultado[0].innerHTML = operando1 + operando2;
+							break;
+
+						case '-':
+							poner_resultado[0].innerHTML = operando1 - operando2;
+							break;
+
+						case '/':
+					    	poner_resultado[0].innerHTML = operando1 / operando2;
+							break;
+						
+						case 'x':
+					    	poner_resultado[0].innerHTML = operando1 * operando2;
+							break;
+					}
+			    }		    	
+		    }
+		}
+
+		// Función para limpiar las operaciones
+		function limpiar(evento) {
+			var mi_evento = evento || window.event;
+			var codigo_tecla = mi_evento.keyCode;
+
+			// Solo funciona con ENTER
+			if (codigo_tecla==13) {
+		    	poner_resultado[0].innerHTML = "Aqui va el resultado...";
+		    }
+		}
+
+		// Función para saber a qué botón se dió click la última vez
+		function captura_click(e) {
+			var evento;
+
+			if (e == null) {
+				// Si hace click un elemento, lo leemos
+				evento = event.srcElement;
+			} 
+			else {
+				// Si ha hecho click sobre un destino, lo leemos
+				evento = e.target;
+			}
+
+			// Guardo el valor del botón al que se le dió click
+			operacion_ultimo_click = evento.value;			 
+		}
+
+
+		// Una vez cargada la página totalmente, se asignan las funciones a cada evento
+		window.onload = function() {
+			document.getElementById("suma").onkeypress = suma;
+			document.getElementById("suma").onclick = captura_click;
+
+			document.getElementById("resta").onkeypress = resta;
+			document.getElementById("resta").onclick = captura_click;
+
+			document.getElementById("multiplica").onkeypress = multiplicacion;
+			document.getElementById("multiplica").onclick = captura_click;
+
+			document.getElementById("divide").onkeypress = division;
+			document.getElementById("divide").onclick = captura_click;
+
+			document.getElementById("limpia").onkeypress = limpiar;
+
+			document.getElementById("igual").onkeypress = igual;
+		}
+	</script>
+</body>
+</html>
